@@ -1,0 +1,11 @@
+<form class="form-header" onsubmit="return false;" method="GET">
+  <input
+    #myInput
+    class="au-input au-input-xl"
+    type="text"
+    name="search"
+    placeholder="Search for data ..."
+    (keydown.enter)="onSearchHandler(myInput.value, $event)"
+  />
+  <button class="au-btn-submit" type="submit" (click)="onSearchHandler(myInput.value, $event)">Search</button>
+</form>

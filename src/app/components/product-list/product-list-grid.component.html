@@ -1,0 +1,36 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- product list if existing -->
+        <div *ngFor="let tmpProduct of products" class="col-md-3">
+          <div class="product-box">
+            <a routerLink="/products/{{ tmpProduct.id }}">
+              <img src="{{ tmpProduct.imageUrl }}" class="img-responsive" />
+            </a>
+
+            <br/>
+			
+            <a routerLink="/products/{{ tmpProduct.id }}">
+            	<h1>{{ tmpProduct.name }}</h1>
+            </a>
+
+            <div class="price">
+              {{ tmpProduct.unitPrice | currency : "USD" }}
+            </div>
+            <a href="#" class="primary-btn">Add to cart</a>
+          </div>
+        </div>
+
+        <!-- alert information if product list not exisiting -->
+        <div
+          *ngIf="products?.length == 0"
+          class="alert alert-warning col-md-12"
+          role="alert"
+        >
+          No products found.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
