@@ -9,10 +9,10 @@
               <img src="{{ tmpProduct.imageUrl }}" class="img-responsive" />
             </a>
 
-            <br/>
-			
+            <br />
+
             <a routerLink="/products/{{ tmpProduct.id }}">
-            	<h1>{{ tmpProduct.name }}</h1>
+              <h1>{{ tmpProduct.name }}</h1>
             </a>
 
             <div class="price">
@@ -31,6 +31,40 @@
           No products found.
         </div>
       </div>
+
+      <!-- begin footer -->
+      <div class="footer-pagination">
+        <div class="row">
+          <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9" style="padding-left: 30%">
+                <ngb-pagination
+                  [(page)]="thePageNumber"
+                  [pageSize]="thePageSize"
+                  [collectionSize]="theTotalElements"
+                  [maxSize]="5"
+                  [boundaryLinks]="true"
+                  (pageChange)="listProducts()"
+                >
+                </ngb-pagination>
+              </div>
+              <div class="col-md-3 mt-2" style="text-align: middle;">
+                <span class="mr-2">Page Size</span>
+
+                <select #mySeletedSize (change)="pageSizeHandler(mySeletedSize.value)">
+                  <option selected="true">5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end footer -->
     </div>
   </div>
 </div>

@@ -3,18 +3,26 @@ import { Product } from '../../common/product';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgbModule],
   templateUrl: './product-list-grid.component.html',
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   curCategoryId: number = 1;
+  prevCategoryId: number = 1;
   searchMode: boolean = false;
+
+  thePageNumber: number = 1;
+  thePageSize: number = 5;
+  theTotalElements: number = 0;
+
+  prevKeywordParam: string = "";
 
   constructor(
     private productService: ProductService,
@@ -43,16 +51,54 @@ export class ProductListComponent implements OnInit {
     // if 'id' doesn't exist, use the default value
     this.curCategoryId = categoryIdParam ? +categoryIdParam : 1;
 
-    this.productService.getProductListByCategoryId(this.curCategoryId).subscribe((data) => {
-      this.products = data;
-    });
+    // check if the category has been changed
+    if (this.prevCategoryId != this.curCategoryId) {
+      this.thePageNumber = 1;
+    }
+
+    this.prevCategoryId = this.curCategoryId;
+
+    this.productService
+      .getProductListPaginate(
+        // notice that page number in Spring Data REST is 0-index
+        this.thePageNumber - 1,
+        this.thePageSize,
+        this.curCategoryId
+      )
+      .subscribe(this.processResult());
   }
 
   findProductByKeyword() {
     const keywordParam = this.route.snapshot.paramMap.get('keyword')!;
 
-    this.productService.getProductListByKeyword(keywordParam).subscribe((data) => {
-      this.products = data;
-    });
+    if (this.prevKeywordParam != keywordParam) {
+      this.thePageNumber = 1;
+    }
+    
+    this.prevKeywordParam = keywordParam;
+
+    this.productService
+      .searchProductListPaginate(
+        // notice that page number in Spring Data REST is 0-index
+        this.thePageNumber - 1,
+        this.thePageSize,
+        keywordParam
+      )
+      .subscribe(this.processResult());
+  }
+
+  private processResult() {
+    return (data: any) => {
+      (this.products = data._embedded.products),
+        (this.thePageNumber = data.page.number + 1),
+        (this.thePageSize = data.page.size),
+        (this.theTotalElements = data.page.totalElements);
+    };
+  }
+
+  pageSizeHandler(mySelectedValue: string) {
+    this.thePageSize = +mySelectedValue;
+    this.thePageNumber = 1;
+    this.listProducts();
   }
 }
