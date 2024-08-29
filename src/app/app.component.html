@@ -3,12 +3,15 @@
   <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
       <a href="#">
-        <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
+        <img
+          src="assets/images/logo.png"
+          alt="luv2shop"
+          class="img-responsive"
+        />
       </a>
     </div>
-    
+
     <app-product-category-menu></app-product-category-menu>
-    
   </aside>
   <!-- END MENU SIDEBAR-->
 
@@ -20,22 +23,18 @@
         <div class="container-fluid">
           <div class="header-wrap">
             <app-search></app-search>
-            <div class="cart-area d-n">
-              <a href="shopping-detail.html">
-                <div class="total">19.22 <span> 2</span> </div> <i class="fa fa-shopping-cart"
-                  aria-hidden="true"></i>
-              </a>
-            </div>
+            <!-- shopping cart begin -->
+            <app-cart-status></app-cart-status>
+            <!-- shopping cart end -->
           </div>
           <div class="account-wrap"></div>
         </div>
       </div>
     </header>
     <!-- END HEADER DESKTOP-->
-    
+
     <!-- MAIN CONTENT-->
     <router-outlet></router-outlet>
-
   </div>
 </div>
 <!-- END PAGE CONTAINER-->

@@ -4,6 +4,8 @@ import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartService } from '../../services/cart.service';
+import { CartItem } from '../../common/cart-item';
 
 @Component({
   selector: 'app-product-list',
@@ -26,7 +28,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cartService: CartService
   ) {}
 
   // similar to @PostConstruct
@@ -100,5 +103,12 @@ export class ProductListComponent implements OnInit {
     this.thePageSize = +mySelectedValue;
     this.thePageNumber = 1;
     this.listProducts();
+  }
+
+  addToCart(theProduct: Product) {
+    console.log(theProduct);
+
+    // call the cart service to update the maintained information for items in the cart
+    this.cartService.addToCart(new CartItem(theProduct));
   }
 }
