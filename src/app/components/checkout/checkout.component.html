@@ -32,9 +32,9 @@
             </div>
           </div>
         </div>
-				<!-- costomer group end -->
+        <!-- costomer group end -->
 
-				<!-- shipping address group start -->
+        <!-- shipping address group start -->
         <div formGroupName="shippingAddress" class="form-area">
           <h3>Shipping Address</h3>
           <div class="row">
@@ -44,8 +44,8 @@
             <div class="col-9">
               <div class="input-space">
                 <select formControlName="country">
-									<option>TO DO</option>
-								</select>
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
@@ -65,17 +65,17 @@
               </div>
             </div>
           </div>
-					<div class="row">
+          <div class="row">
             <div class="col-md-2"><label>State</label></div>
             <div class="col-9">
               <div class="input-space">
                 <select formControlName="country">
-									<option>TO DO</option>
-								</select>
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
-					<div class="row">
+          <div class="row">
             <div class="col-md-2"><label>Zip Code</label></div>
             <div class="col-9">
               <div class="input-space">
@@ -84,17 +84,21 @@
             </div>
           </div>
         </div>
-				<!-- shipping address group end -->
+        <!-- shipping address group end -->
 
-				<!-- add checkbox to copy shipping to billing -->
-				<div class="input-space">
-					<label class="au-checkbox">
-						<input type="checkbox" (change)="copyShippingToBillingAddress($event)">
-						<span class="au-checkmark"></span>Billing Address same as Shipping Address
-					</label>
-				</div>
+        <!-- add checkbox to copy shipping to billing -->
+        <div class="input-space">
+          <label class="au-checkbox">
+            <input
+              type="checkbox"
+              (change)="copyShippingToBillingAddress($event)"
+            />
+            <span class="au-checkmark"></span>Billing Address same as Shipping
+            Address
+          </label>
+        </div>
 
-				<!-- billing address group start -->
+        <!-- billing address group start -->
         <div formGroupName="billingAddress" class="form-area">
           <h3>Billing Address</h3>
           <div class="row">
@@ -104,8 +108,8 @@
             <div class="col-9">
               <div class="input-space">
                 <select formControlName="country">
-									<option>TO DO</option>
-								</select>
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
@@ -125,17 +129,17 @@
               </div>
             </div>
           </div>
-					<div class="row">
+          <div class="row">
             <div class="col-md-2"><label>State</label></div>
             <div class="col-9">
               <div class="input-space">
                 <select formControlName="country">
-									<option>TO DO</option>
-								</select>
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
-					<div class="row">
+          <div class="row">
             <div class="col-md-2"><label>Zip Code</label></div>
             <div class="col-9">
               <div class="input-space">
@@ -144,9 +148,9 @@
             </div>
           </div>
         </div>
-				<!-- billing address group end -->
+        <!-- billing address group end -->
 
-				<!-- credit card group start -->
+        <!-- credit card group start -->
         <div formGroupName="creditCard" class="form-area">
           <h3>Credit Card</h3>
           <div class="row">
@@ -156,8 +160,8 @@
             <div class="col-9">
               <div class="input-space">
                 <select formControlName="cardType">
-									<option>TO DO</option>
-								</select>
+                  <option>TO DO</option>
+                </select>
               </div>
             </div>
           </div>
@@ -177,7 +181,7 @@
               </div>
             </div>
           </div>
-					<div class="row">
+          <div class="row">
             <div class="col-md-2"><label>Security Code</label></div>
             <div class="col-9">
               <div class="input-space">
@@ -185,37 +189,45 @@
               </div>
             </div>
           </div>
-					<div class="row">
+          <div class="row">
             <div class="col-md-2"><label>Expiration Month</label></div>
             <div class="col-9">
               <div class="input-space">
                 <select formControlName="expirationMonth">
-									<option>TO DO</option>
-								</select>
+                  <option *ngFor="let tmpMonth of monthsList">
+                    {{ tmpMonth }}
+                  </option>
+                </select>
               </div>
             </div>
           </div>
-					<div class="row">
+          <div class="row">
             <div class="col-md-2"><label>Expiration Year</label></div>
             <div class="col-9">
               <div class="input-space">
-                <select formControlName="expirationYear">
-									<option>TO DO</option>
-								</select>
+                <select
+                  #mySeletedYear
+                  formControlName="expirationYear"
+                  (change)="setMonthsRange(mySeletedYear.value)"
+                >
+                  <option *ngFor="let tmpYear of yearsList">
+                    {{ tmpYear }}
+                  </option>
+                </select>
               </div>
             </div>
           </div>
         </div>
-				<!-- credit card group end -->
+        <!-- credit card group end -->
 
-				<!-- shopping details -->
-				<div class="form-area">
-					<h3>Review Your Order</h3>
-					
-					<p>Total Quantity: {{ totalQuantity }}</p>
-					<p>Shipping: FREE</p>
-					<p>Total Prize: {{ totalPrice | currency : "USD" }}</p>
-				</div>
+        <!-- shopping details -->
+        <div class="form-area">
+          <h3>Review Your Order</h3>
+
+          <p>Total Quantity: {{ totalQuantity }}</p>
+          <p>Shipping: FREE</p>
+          <p>Total Prize: {{ totalPrice | currency : "USD" }}</p>
+        </div>
 
         <div class="text-center">
           <button class="btn btn-info" type="submit">Purchase</button>
